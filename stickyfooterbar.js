@@ -1,44 +1,81 @@
 (function( $ ) {
 	
-	$.fn.stickyfooterbar = function() {
-
+	var defFooterBarHeight = 50;
+	var stickyClass = 'sticky';
+	
+	$.fn.stickyfooterbar = function(heightOrObj) {
+		
 		/* initialize */
-		var $footer = this;
-		var footer_height = $footer.height();
-		var footer_bar_height = 30;
-		var body_padding_bottom = parseInt($('body').css('padding-bottom'));
-		var footer_offset = $footer.offset().top;
+		var $footer = $(this);
+		var footerHeight = $footer.outerHeight();
+		var bodyPaddingBottom = parseInt($('body').css('padding-bottom'));
+		var footerOffset = $footer.offset().top;
+		debug("footer height: "+footerHeight);
+		debug("body padding-bottom: "+bodyPaddingBottom);
 
-		$footer.css({
-			'position': 'fixed',
-			'bottom': -footer_height
-		});
-		$('body').css('padding-bottom', body_padding_bottom+footer_bar_height);
+
+		/* check param */
+		var footerBarHeight = $footer.outerHeight();
+		var paramType = typeof heightOrObj;
+		debug("type of parameter: '" + paramType + "'");
+		
+		switch (paramType) {
+			case 'number' :
+				footerBarHeight = heightOrObj;
+				break;
+			case 'string' :
+				var $obj = $(heightOrObj);
+				if ($obj.length > 0) {
+					footerBarHeight = $obj.outerHeight(true);
+				}
+				break;
+			case 'object' :
+				if (heightOrObj instanceof jQuery && heightOrObj.length > 0) {
+					footerBarHeight = heightOrObj.outerHeight();
+				}
+				break;
+		}
+
+		debug ("footerBarHeight: " + footerBarHeight);
+		
+		
+		makeItSticky();
 
 		
 		$(window).scroll( function() {
-			/* current (scroll-) position from the bottom of the document */
-			var scroll_bottom = $(window).scrollTop()+$(window).height();
+			var scrollBottom = $(window).scrollTop()+$(window).height();
 
-			if (scroll_bottom-footer_bar_height >= footer_offset) {
-				$footer.removeClass('sticky');
-				$footer.css({
-					'position': '',
-					'bottom': ''
-				});
-				$('body').css('padding-bottom', '');
+			if (scrollBottom-footerBarHeight >= footerOffset) {
+				makeItFloaty();
 			}
 			else {
-				$footer.addClass('sticky');
-				$footer.css({
-					'position': 'fixed',
-					'bottom': -footer_height
-				});
-				$('body').css('padding-bottom', body_padding_bottom+footer_bar_height);	
+				makeItSticky();
 			}
 
 		});
+
+		function makeItSticky() {
+			$footer.addClass(stickyClass);
+			$footer.css({
+				'position': 'fixed',
+				'bottom': -footerHeight+footerBarHeight
+			});
+			$('body').css('padding-bottom', bodyPaddingBottom+footerBarHeight);
+		}
+
+		function makeItFloaty() {
+			$footer.removeClass(stickyClass);
+			$footer.css({
+				'position': '',
+				'bottom': ''
+			});
+			$('body').css('padding-bottom', bodyPaddingBottom);
+		}
 
 	};
 
 }( jQuery ));
+
+function debug(msg) {
+	console.log('stickyfooterbar: ' + msg);
+}

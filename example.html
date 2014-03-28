@@ -3,17 +3,28 @@
 	<head>
 		<meta charset="utf-8" />
 
-		<link rel="stylesheet" href="stickyfooterbar.css">
-
 		<title>Sticky Footer Bar</title>
 
 		<script type="text/javascript" src="jquery-1.11.0.js"></script>
 		<script type="text/javascript" src="stickyfooterbar.js"></script>
 
 		<style type="text/css">
+			body {
+				padding: 0;
+				margin: 0;
+			}
 			#stickyfooter {
 				background: #000000;
+				border: 1px solid #000000;
 				color: #777777;
+			}
+			#stickyfooter.sticky {
+				right: 0;
+				left: 0;
+			}
+			#stickyline {
+				padding-top: 1px;
+				padding-bottom: 1px;
 			}
 		</style>
 	</head>
@@ -78,13 +89,18 @@
 		</article>
 
 		<footer id="stickyfooter">
-			<p>Fooooooo</p>
-			<p>Fooooooo</p>
-			<p>Fooooooo</p>
-			<p>Fooooooo</p>
+			<div id="stickyline">
+				<h2>This line stayes!</h2>
+			</div>
+			<p>
+				This line doesn't
+			</p>
 		</footer>
 		<script type="text/javascript">
-			$('#stickyfooter').stickyfooterbar();
+			$(document).ready(function() {
+				$('#stickyfooter').stickyfooterbar('#stickyline');
+			});
+			console.log($('#stickyfooter').outerHeight());
 		</script>
 	</body>
 </html>
