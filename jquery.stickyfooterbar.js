@@ -80,6 +80,9 @@
 		});
 
 		function makeItSticky() {
+			if (footerOffset <= $(window).height()) { /* do nothing if window is too small */
+				return;
+			}
 			$footer.addClass(stickyClass);
 			$footer.css({
 				'position': 'fixed',

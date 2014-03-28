@@ -12,11 +12,51 @@
 			body {
 				padding: 0;
 				margin: 0;
+				font-family: Verdana, sans-serif;
+				font-size: 13px;
+			}
+
+			* {
+				margin: 0;
+			}
+
+			header {
+				padding-top: 2em;
+				padding-bottom: 2em;
+				color: #66f30e;
+				background: #686a72;
+			}
+			header h1 {
+				font-size: 3em;
+			}
+			article h2 div:before {
+				content: '/';
+			}
+			article h2 div:after {
+				content: '/';
+			}
+			article h2 {
+				background: #CCCCCC;
+				padding-top: 0.8em;
+				padding-bottom: 0.8em;
+			}
+			article p {
+				margin: 1em 0 1em 0;
+			}
+			article a {
+				color: #66f30e;
+				background: #686a72;
+				text-decoration: none;
+			}
+			article a:hover {
+				color: #ffffff;
+			}
+			pre, code {
+				font-family: monospace;
 			}
 			#stickyfooter {
-				background: #000000;
-				border: 1px solid #000000;
-				color: #777777;
+				background: #686a72;
+				color: #000000;
 			}
 			#stickyfooter.sticky {
 				right: 0;
@@ -26,85 +66,91 @@
 				padding-top: 1px;
 				padding-bottom: 1px;
 			}
+			.intended {
+				max-width: 800px;
+				margin-left: auto;
+				margin-right: auto;
+				padding-left: 1em;
+				padding-right: 1em;
+			}
+			.gist a {
+				background: transparent;
+			}
 		</style>
 	</head>
 	<body>
 		<header>
-			<h1>Sticky Footer Bar</h1>
+			<h1 class="intended">Sticky Footer Bar</h1>
+			<a href="https://github.com/defname/sticky-footer-bar"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
 		</header>
 		
 		<article>
 			
-			<section>
-				<h2>About</h2>
-				<p>
-					...
-				</p>
-				<p>
-					...
-				</p>
-				<p>
-					...
-				</p>
-				<p>
-					...
-				</p>
-				<p>
-					...
-				</p>
-				<p>
-					...
-				</p>
-				<p>
-					...
-				</p>
-				<p>
-					...
-				</p>
-				<p>
-					...
-				</p>
-				<p>
-					...
-				</p>
-				<p>
-					...
-				</p>
-				<p>
-					...
-				</p>
-				<p>
-					...
-				</p>
+			<section id="about">
+				<h2><div class="intended">About</div></h2>
+				<div class="intended">
+					<p>
+						<em>Sticky Footer Bar</em> is a little <a href="http://jquery.com/">jQuery</a>-plugin
+						to make a footer "sticky". This means a part of the footer is always displayed on the bottom
+							of the screen and if you scroll down under its actual position, it's scrolling too like
+						the rest of the document.
+					</p>
+					<p>
+						Look at this page itself to understand what I mean ;-)
+					</p>
+					<p>
+						(try scaling down the window if your window, if your screen is too big and the effect
+						doesn't show up)
+					</p>
+				</div>
 			</section>
 
-			<section>
-				<h2>Using</h2>
+			<section id="using">
+				<h2><div class="intended">Using</div></h2>
+				<div class="intended">
+					<p>
+						To use this plugin the first thing you should do is to add these lines in the header of your document:
+					</p>
+					<script src="https://gist.github.com/defname/9832072.js?file=remotefiles.html" type="text/javascript"></script>
+					<p>
+						Or, if you have downloaded <a href="http://jquery.com/">jQuery</a> and
+						<em>sticky-footer-bar</em> to the same directory as your HTML-document, you can also use
+					</p>
+					<script src="https://gist.github.com/defname/9832072.js?file=localfiles.html" type="text/javascript"></script>
+					<p>
+						(But you really should be familiar with this if you are about to build a website...)
+					</p>
+					<p>
+						Now you just need a footer and run the plugin:
+					</p>
+					<script src="https://gist.github.com/defname/9832072.js?file=makeitsticky.html" type="text/javascript"></script>
+				</div>
 			</section>
 			
 			<section>
-				<h2>Get it!</h2>
+				<h2><div class="intended">Get it!</div></h2>
 			</section>
 
 		</article>
 
 		<footer id="stickyfooter">
-			<div id="stickyline">
-				<h2>This line stayes!</h2>
+			<div class="intended">
+				<div id="stickyline">
+					<h2>This line stayes!</h2>
+				</div>
+				<p>
+					This line doesn't
+				</p>
+				<p>fooo</p>
+				<p>fooo</p>
+				<p>fooo</p>
+				<p>fooo</p>
 			</div>
-			<p>
-				This line doesn't
-			</p>
 		</footer>
-		<p>fooo</p>
-		<p>fooo</p>
-		<p>fooo</p>
-		<p>fooo</p>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$('#stickyfooter').stickyfooterbar('#stickyline');
 			});
-			console.log($('#stickyfooter').outerHeight());
 		</script>
 	</body>
 </html>
