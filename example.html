@@ -36,35 +36,64 @@
 				content: '/';
 			}
 			article h2 {
-				background: #CCCCCC;
+				background: #dddddd;
 				padding-top: 0.8em;
 				padding-bottom: 0.8em;
 			}
-			article p {
+			article p, ul {
 				margin: 1em 0 1em 0;
 			}
-			article a {
+			a {
 				color: #66f30e;
-				background: #686a72;
 				text-decoration: none;
 			}
-			article a:hover {
+			article a {
+				background: #686a72;
+			}
+			a:hover {
 				color: #ffffff;
 			}
 			pre, code {
 				font-family: monospace;
 			}
+			code {
+				background: #dddddd;
+				border: 1px dashed #686a72;
+			}
+			li {
+				margin-top: 0.5em;
+				margin-bottom: 0.5em;
+			}
 			#stickyfooter {
-				background: #686a72;
-				color: #000000;
+				background: #121212;
+				color: #ffffff;
+				padding-top: 1px;
+				padding-bottom: 1px;
+			}
+			#stickyfooter .scroll {
+				display: none;
+				font-size: 0.4em;
+				vertical-align: middle;
+			}
+			#stickyfooter.sticky .scroll {
+				display: inline;
 			}
 			#stickyfooter.sticky {
 				right: 0;
 				left: 0;
 			}
 			#stickyline {
-				padding-top: 1px;
-				padding-bottom: 1px;
+				padding-top: 1em;
+				padding-bottom: 1em;
+			}
+			#stickyline h2 {
+				font-size: 2.7em;
+			}
+			#copyright {
+				text-align: center;
+				padding: 2em;
+				font-size: 0.8em;
+				background: #dddddd;
 			}
 			.intended {
 				max-width: 800px;
@@ -121,31 +150,57 @@
 						(But you really should be familiar with this if you are about to build a website...)
 					</p>
 					<p>
-						Now you just need a footer and run the plugin:
+						Now you just need a footer and run the plugin (of course there is no need to use the
+						<code>footer</code>-element... you can use whatever you want):
 					</p>
 					<script src="https://gist.github.com/defname/9832072.js?file=makeitsticky.html" type="text/javascript"></script>
+					<h3>Hints</h3>
+					<ul>
+						<li>
+							Set the CSS <code>margin</code>-property for all elements within your
+							footer (and for the footer itself) to zero and use <code>padding</code>
+							instead. Since margin are collapsing the calculation of the height will
+							cause problems.
+						</li>
+						<li>
+							<em>sticky-footer-bar</em> takes two (optional) parameters. The first is
+							either a number telling the script how much of the footer should be displayed
+							on the bottom of the screen or a jQuery-selector-string or a jQuery object.
+							In this case the height of the specified object is used.
+						</li>
+						<li>
+							Whenever the footer is in "sticky-mode" (what I mean is when the footer
+							isn't displayed the usual way) the script adds the CSS-class <code>sticky</code>
+							to it. With the second parameter you can change the classname that should
+							be used.
+						</li>
+					</ul>
+
 				</div>
 			</section>
 			
-			<section>
-				<h2><div class="intended">Get it!</div></h2>
-			</section>
-
 		</article>
 
-		<footer id="stickyfooter">
-			<div class="intended">
-				<div id="stickyline">
-					<h2>This line stayes!</h2>
+		<footer>
+			<div id="stickyfooter">
+				<div class="intended">
+					<div id="stickyline">
+						<h2>Get it! <span class="scroll">Scroll to the bottom</span></h2>
+					</div>
+					<ul>
+						<li>
+							<a href="https://github.com/defname/sticky-footer-bar">Visit the project on GitHub</a>
+						</li>
+						<li>
+							or <a href="https://github.com/defname/sticky-footer-bar/archive/master.zip">download
+							the repository as ZIP</a>
+						</li>
+					</ul>
 				</div>
-				<p>
-					This line doesn't
-				</p>
-				<p>fooo</p>
-				<p>fooo</p>
-				<p>fooo</p>
-				<p>fooo</p>
 			</div>
+			<p id="copyright">
+				&copy; 2014 Bodo Akdeniz
+			</p>
 		</footer>
 		<script type="text/javascript">
 			$(document).ready(function() {
