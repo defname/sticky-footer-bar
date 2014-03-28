@@ -83,6 +83,9 @@
 			if (footerOffset <= $(window).height()) { /* do nothing if window is too small */
 				return;
 			}
+			if ($footer.hasClass(stickyClass)) { /* do nothing if footer is already sticky */
+				return;
+			}
 			$footer.addClass(stickyClass);
 			$footer.css({
 				'position': 'fixed',
@@ -92,6 +95,9 @@
 		}
 
 		function makeItFloaty() {
+			if (!$footer.hasClass(stickyClass)) { /* do nothing if footer is already floaty */
+				return;
+			}
 			$footer.removeClass(stickyClass);
 			$footer.css({
 				'position': '',
