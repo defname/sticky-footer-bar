@@ -79,6 +79,18 @@
 
 		});
 
+		/* reconfigure on resize */
+		$(window).resize( function() {
+			if ($footer.hasClass(stickyClass)) { /* if footer is sticky */
+				makeItFloaty(); /* make it floaty, because if the position is fixed the offset is wrong */
+				footerOffset = $footer.offset().top;
+				makeItSticky();
+			}
+			else {
+				footerOffset = $footer.offset().top;
+			}
+		});
+
 		function makeItSticky() {
 			if (footerOffset <= $(window).height()) { /* do nothing if window is too small */
 				return;
