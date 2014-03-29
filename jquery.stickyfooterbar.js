@@ -109,6 +109,9 @@ as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
 			if (footerOffset <= $(window).height()) { /* do nothing if window is too small */
 				return;
 			}
+			if ($(window).height()/2 < footerBarHeight) { /* do nothing if window is too small TODO: improve this */
+				return;
+			}
 			if ($footer.hasClass(stickyClass)) { /* do nothing if footer is already sticky */
 				return;
 			}
@@ -117,7 +120,7 @@ as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
 				'position': 'fixed',
 				'bottom': -footerHeight+footerBarHeight
 			});
-			$('body').css('padding-bottom', bodyPaddingBottom+footerBarHeight);
+			$('body').css('padding-bottom', bodyPaddingBottom+footerHeight);
 		}
 
 		function makeItFloaty() {
