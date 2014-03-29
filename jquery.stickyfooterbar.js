@@ -43,11 +43,9 @@ as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
 		/* initialize */
 		var $footer = $(this);
 		var footerHeight = $footer.outerHeight(); /* collapsing margins may cause problems */
-		var bodyPaddingBottom = parseInt($('body').css('padding-bottom'));
 		var footerOffset = $footer.offset().top;
 
 		debug("footer height: "+footerHeight);
-		debug("body padding-bottom: "+bodyPaddingBottom);
 
 		/* check param */
 		var footerBarHeight = $footer.outerHeight(); /* default value */
@@ -66,7 +64,7 @@ as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
 				break;
 			case 'object' : /* use the height of the given jQuery object */
 				if (heightOrObj instanceof jQuery && heightOrObj.length > 0) {
-					footerBarHeight = heightOrObj.outerHeight();
+					footerBarHeight = heightOrObj.outerHeight(true);
 				}
 				break;
 		}
@@ -106,7 +104,7 @@ as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
 		});
 
 		function makeItSticky() {
-			if (footerOffset <= $(window).height()) { /* do nothing if window is too small */
+			if (footerOffset-footerBarHeight < $(window).height()) { /* do nothing if window is too small */
 				return;
 			}
 			if ($(window).height()/2 < footerBarHeight) { /* do nothing if window is too small TODO: improve this */
@@ -120,7 +118,8 @@ as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
 				'position': 'fixed',
 				'bottom': -footerHeight+footerBarHeight
 			});
-			$('body').css('padding-bottom', bodyPaddingBottom+footerHeight);
+			$footer.after('<div id="stickyfooterbarplaceholder">&nbsp;</div>');
+			$('#stickyfooterbarplaceholder').height(footerHeight);
 		}
 
 		function makeItFloaty() {
@@ -132,7 +131,7 @@ as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
 				'position': '',
 				'bottom': ''
 			});
-			$('body').css('padding-bottom', bodyPaddingBottom);
+			$('#stickyfooterbarplaceholder').remove();
 		}
 
 	};
