@@ -1,3 +1,17 @@
+/*
+Copyright © 2014 Bodo Akdeniz <cypher_ab@gmx.de>
+This work is free. You can redistribute it and/or modify it under the
+terms of the Do What The Fuck You Want To Public License, Version 2,
+as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
+*/
+
+/* This program is free software. It comes without any warranty, to
+ * the extent permitted by applicable law. You can redistribute it
+ * and/or modify it under the terms of the Do What The Fuck You Want
+ * To Public License, Version 2, as published by Sam Hocevar. See
+ * http://www.wtfpl.net/ for more details.
+ */
+
 (function( $ ) {
 	
 	var stickyClass = 'sticky';
@@ -95,6 +109,9 @@
 			if (footerOffset <= $(window).height()) { /* do nothing if window is too small */
 				return;
 			}
+			if ($(window).height()/2 < footerBarHeight) { /* do nothing if window is too small TODO: improve this */
+				return;
+			}
 			if ($footer.hasClass(stickyClass)) { /* do nothing if footer is already sticky */
 				return;
 			}
@@ -103,7 +120,7 @@
 				'position': 'fixed',
 				'bottom': -footerHeight+footerBarHeight
 			});
-			$('body').css('padding-bottom', bodyPaddingBottom+footerBarHeight);
+			$('body').css('padding-bottom', bodyPaddingBottom+footerHeight);
 		}
 
 		function makeItFloaty() {
