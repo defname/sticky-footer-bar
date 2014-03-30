@@ -40,7 +40,7 @@ as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
 
 	$.fn.stickyfooterbar = function(heightOrObj, classname) {
 		
-		/* initialize */
+		/* init vars */
 		var $footer = $(this);
 		var footerHeight = $footer.outerHeight(); /* collapsing margins may cause problems */
 		var footerOffset = $footer.offset().top;
@@ -75,11 +75,29 @@ as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
 
 		debug ("footerBarHeight: " + footerBarHeight);
 		
-		
-		makeItSticky();
+		/* init footer */
+		onScroll();
 
 		
+		/* main function */
 		$(window).scroll( function() {
+			onScroll();
+		});
+
+		/* reconfigure on resize */
+		$(window).resize( function() {
+			if ($footer.hasClass(stickyClass)) { /* if footer is sticky */
+				makeItFloaty(); /* make it floaty, because if the position is fixed the offset is wrong */
+				footerOffset = $footer.offset().top;
+			}
+			else {
+				footerOffset = $footer.offset().top;
+			}
+
+			onScroll();
+		});
+
+		function onScroll() {
 			var scrollBottom = $(window).scrollTop()+$(window).height();
 
 			if (scrollBottom-footerBarHeight >= footerOffset) {
@@ -88,20 +106,7 @@ as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
 			else {
 				makeItSticky();
 			}
-
-		});
-
-		/* reconfigure on resize */
-		$(window).resize( function() {
-			if ($footer.hasClass(stickyClass)) { /* if footer is sticky */
-				makeItFloaty(); /* make it floaty, because if the position is fixed the offset is wrong */
-				footerOffset = $footer.offset().top;
-				makeItSticky();
-			}
-			else {
-				footerOffset = $footer.offset().top;
-			}
-		});
+		}
 
 		function makeItSticky() {
 			if (footerOffset-footerBarHeight < $(window).height()) { /* do nothing if window is too small */
